@@ -1,0 +1,82 @@
+/* wrapper */
+.cat-wrap {
+  background: #fff;
+  padding: 28px 0 40px; /* only top & bottom padding */
+  width: 100%;
+}
+
+/* heading */
+.cat-heading {
+  margin: 0 0 16px;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #000;
+  letter-spacing: .2px;
+  /* text-align: center; */
+  margin-left: 2%;
+}
+
+/* grid — 4 cards perfectly fit 100% */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  width: 100%;    /* fills full width */
+  margin: 0;      /* no outside margin */
+  padding: 0 18px;/* small inner spacing if you want */
+}
+
+/* responsive */
+@media (max-width: 1100px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 820px)  { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px)  { .cat-grid { grid-template-columns: 1fr; } }
+
+/* card style */
+.cat-card {
+  position: relative;
+  display: block;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  outline: none;
+  transform: translateZ(0);
+}
+
+@media (max-width: 820px) { .cat-card { height: 260px; } }
+@media (max-width: 520px) { .cat-card { height: 220px; } }
+
+/* slideshow images */
+.cat-imgs { position: absolute; inset: 0; overflow: hidden; }
+.cat-img  { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* fade animation */
+:root { --slides: 4; --slot: 4s; --duration: calc(var(--slides) * var(--slot)); }
+.slide { opacity: 0; animation: fadeSwap var(--duration) linear infinite; animation-delay: calc(var(--i) * var(--slot)); }
+@keyframes fadeSwap { 0%{opacity:0} 3%{opacity:1} 22%{opacity:1} 25%{opacity:0} 100%{opacity:0} }
+
+/* overlay */
+.cat-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.45) 60%, rgba(0,0,0,.6) 100%);
+  pointer-events: none;
+}
+
+/* title */
+.cat-title {
+  position: absolute;
+  top: 18px; left: 18px; right: 18px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 20px;
+  text-shadow: 0 2px 10px rgba(0,0,0,.35);
+}
+
+/* button */
+.view-all {
+  display: flex; align-items: center; gap: 10px;
+  margin: 22px auto 0;
+  border: 1px solid #000; background: transparent; color: #000;
+  padding: 12px 20px; border-radius: 999px; font-size: 16px; cursor: pointer;
+}

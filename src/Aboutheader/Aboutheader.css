@@ -1,0 +1,27 @@
+/* ===== WHITE TOP BAR (same as Header.css) ===== */
+.topbar{ position: sticky; top:0; z-index: 100; background:#fff; }
+.topbar-inner{
+  height:110px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; padding:0 var(--padX);
+  background:#fff;
+}
+.brand { position:absolute; left:50%; transform:translateX(-50%); }
+.brand img { height:84px; width:auto; object-fit:contain; }
+
+/* Right aligned menu */
+.menuBtn {
+  position:absolute; right:var(--padX);
+  display:inline-flex; align-items:center; gap:12px;
+  background:transparent; border:0; cursor:pointer; color:#000;
+  font-weight:800; letter-spacing:.5px; font-size:14px;
+}
+.menuText { font-size:14px; }
+.burger, .burger::before, .burger::after {
+  content:""; display:block; width:26px; height:2px; background:#000; border-radius:2px;
+}
+.burger::before { transform: translateY(-7px); }
+.burger::after { transform: translateY(5px); }
+
+/* dark divider strip */
+

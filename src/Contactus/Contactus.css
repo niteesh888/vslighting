@@ -1,0 +1,118 @@
+:root {
+  /* look & feel */
+  --contact-overlay: rgba(0, 0, 0, 0.48);
+  --contact-text: #fff;
+  --contact-subtext: rgba(255, 255, 255, 0.86);
+
+  /* button */
+  --btn-bg: transparent;
+  --btn-text: #fff;
+  --btn-border: #fff;
+  --btn-bg-hover: #fff;
+  --btn-text-hover: #111;
+
+  --radius-pill: 9999px;
+  --maxw: 1100px;
+
+  /* fallback image if component prop not provided */
+  --bg-url: url("/images/hero-contact-fallback.jpg");
+}
+
+/* Section */
+.contacthero {
+  position: relative;
+  width: 100%;
+  min-height: 92vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+
+  background-image: var(--bg-url);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* subtle grayscale & darkness */
+.contacthero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: grayscale(10%);
+}
+
+/* gradient overlay for depth */
+.contacthero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.28) 0%,
+    rgba(0,0,0,0.45) 40%,
+    rgba(0,0,0,0.58) 100%
+  );
+}
+
+/* Content */
+.contacthero__content {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, var(--maxw));
+  text-align: center;
+  color: var(--contact-text);
+  padding: clamp(16px, 4vw, 40px);
+}
+
+.contacthero__title {
+  margin: 0 0 12px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: .2px;
+  font-size: clamp(34px, 5vw + 10px, 64px); /* same scale as previous */
+}
+
+.contacthero__subtitle {
+  margin: 0 0 28px;
+  font-weight: 500;
+  color: var(--contact-subtext);
+  line-height: 1.4;
+  font-size: clamp(14px, 1.4vw + 8px, 20px);
+}
+
+/* Pill CTA */
+.contacthero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 34px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25),
+              inset 0 0 0 1px rgba(255,255,255,.06);
+  transition: transform .16s ease, background .16s ease,
+              color .16s ease, box-shadow .16s ease;
+}
+
+.contacthero__btn:hover,
+.contacthero__btn:focus-visible {
+  background: var(--btn-bg-hover);
+  color: var(--btn-text-hover);
+  transform: translateY(-1px);
+  outline: none;
+  box-shadow: 0 14px 34px rgba(0,0,0,.32);
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .contacthero { min-height: 84vh; }
+  .contacthero__subtitle { margin-bottom: 22px; }
+}
+
+@media (min-width: 1280px) {
+  .contacthero { min-height: 100vh; }
+}

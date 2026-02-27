@@ -1,0 +1,135 @@
+/* ============ top bar (matches header vibe) ============ */
+.pp-top{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #ffffff;
+  border-bottom: 1px solid #eee;
+  padding: 12px 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pp-brand{ position: relative; }
+.pp-brand img{
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+}
+.pp-menuBtn{
+  position: absolute;
+  right: 5vw;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #111;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+.pp-menuBtn img{ width: 24px; height: 24px; }
+.pp-menuText{ font-size: 14px; }
+
+/* ============ hero ============ */
+.pp-hero{
+  position: relative;
+  min-height: 32vh;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.pp-hero::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 100%);
+}
+.pp-heroInner{
+  position: relative; z-index: 1; text-align: center; color: #fff;
+  padding: 24px 16px;
+}
+.pp-heroInner h1{
+  margin:0 0 6px; font-weight: 800; font-size: clamp(28px, 5vw, 44px);
+}
+.pp-heroInner p{ margin: 0; opacity: .9; }
+
+/* ============ layout (no left sidebar) ============ */
+.pp-wrap{
+  max-width: 900px;          /* comfy reading width */
+  margin: 28px auto 80px;
+  padding: 0 16px;
+}
+
+/* ============ content ============ */
+.pp-content{ font-size:15px; line-height:1.8; color:#212121; }
+.pp-content h2{
+  margin:32px 0 10px; font-size:22px; line-height:1.3; font-weight:800;
+}
+.pp-content p, .pp-content ul{ margin:10px 0; }
+.pp-content ul{ padding-left:18px; }
+
+/* ============ full-screen menu overlay (namespaced) ============ */
+.ppMenuOverlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 999;
+  display: none;
+}
+.ppMenuOverlay.show{
+  display: block;
+  animation: ppFade .5s ease forwards;
+}
+@keyframes ppFade{ from{opacity:0} to{opacity:1} }
+
+.ppMenuInner{
+  display:flex; flex-direction:column; align-items:center;
+  padding-top: 90px; gap: 32px; text-align:center; height:100%;
+}
+.ppCloseBtn{
+  position:absolute; top:20px; right:28px;
+  background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer;
+}
+.ppMenuLogo img{
+  width: clamp(120px, 18vw, 200px); height:auto; filter: drop-shadow(0 4px 22px rgba(0,0,0,.45));
+}
+.ppMenuNav{ display:flex; flex-direction:column; gap:20px; }
+.ppMenuNav a{
+  font-size: 24px; color:#fff; text-decoration:none; font-weight:600;
+  opacity:0; animation: ppFadeUp .6s ease forwards;
+}
+.ppMenuNav a:hover{ opacity:.6; }
+@keyframes ppFadeUp{ from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:translateY(0)} }
+
+/* ============ responsive ============ */
+@media (max-width: 860px){
+  .pp-wrap{ max-width: 720px; }
+}
+
+/* ============ WhatsApp floating button ============ */
+.pp-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1000;
+}
+.pp-whatsapp img {
+  width: 32px;
+  height: 32px;
+}
+.pp-whatsapp:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}

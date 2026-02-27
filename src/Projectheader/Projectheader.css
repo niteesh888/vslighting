@@ -1,0 +1,164 @@
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --padX: 5vw; --text: #fff; }
+
+/* ===== WHITE TOP BAR (same across site) ===== */
+.topbar{ position: sticky; top:0; z-index: 100; background:#fff; }
+.topbar-inner{
+  height:110px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; padding:0 var(--padX);
+  background:#fff;
+}
+.brand{ position:absolute; left:50%; transform:translateX(-50%); }
+.brand img{ height:84px; width:auto; object-fit:contain; }
+
+.menuBtn{
+  position:absolute; right:var(--padX);
+  display:inline-flex; align-items:center; gap:12px;
+  background:transparent; border:0; cursor:pointer; color:#000;
+  font-weight:800; letter-spacing:.5px; font-size:14px;
+}
+.menuText{ font-size:14px; }
+.burger, .burger::before, .burger::after{
+  content:""; display:block; width:26px; height:2px; background:#000; border-radius:2px;
+}
+.burger::before{ transform: translateY(-7px); }
+.burger::after{ transform: translateY(5px); }
+
+/* dark strip under the bar */
+
+
+/* ===== FULLSCREEN MENU OVERLAY (stagger, no yellow) ===== */
+.menuOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 200;
+  backdrop-filter: blur(2px);
+}
+.menuOverlay.show { opacity: 1; pointer-events: auto; }
+
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.overlayNav {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 13%;
+}
+
+/* base (hidden) state */
+.overlayNav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* keyframes + stagger using nth-child */
+@keyframes linkIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.menuOverlay.show .overlayNav a { animation: linkIn .45s ease forwards; }
+.menuOverlay.show .overlayNav a:nth-child(1){ animation-delay: .12s; }
+.menuOverlay.show .overlayNav a:nth-child(2){ animation-delay: .21s; }
+.menuOverlay.show .overlayNav a:nth-child(3){ animation-delay: .30s; }
+.menuOverlay.show .overlayNav a:nth-child(4){ animation-delay: .39s; }
+.menuOverlay.show .overlayNav a:nth-child(5){ animation-delay: .48s; }
+
+.overlayNav a:hover { color:#fff; transform: translateY(-1px); }
+.overlayNav a:active { color:#fff; opacity:.9; }
+.overlayNav a:focus-visible { outline:2px solid #fff; outline-offset:4px; }
+
+/* ===== HEADER (kept from your file) ===== */
+.hdr {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  color: var(--text);
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+.hdr::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.6) 100%);
+  z-index: 0;
+}
+
+/* INTRO LOGO */
+.introOverlay {
+  position: absolute; inset: 0; display: grid; place-items: center; z-index: 2;
+  animation: introFade 2.6s ease forwards;
+}
+.introLogo {
+  width: min(280px, 60vw);
+  animation: logoPulse 2.2s ease forwards 0.2s;
+}
+@keyframes introFade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes logoPulse {
+  0% { transform: scale(0.95); opacity: 0; }
+  20% { transform: scale(1); opacity: 1; }
+  80% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.98); opacity: 0.9; }
+}
+
+/* FINAL HERO */
+.heroCenter {
+  position: relative; z-index: 1; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  gap: 12px; text-align: center;
+}
+.heroTitle {
+  font-weight: 800; font-size: clamp(28px, 5vw, 56px);
+  animation: fadeIn 1.2s ease forwards;
+}
+.heroSub { font-size: 18px; opacity: 0.8; }
+.fadeInBlock { opacity: 0; animation: fadeIn 1.2s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== Mobile tweaks ===== */
+@media (max-width: 426px){
+  .topbar-inner{ height:68px; padding:0 16px; }
+  .brand img{ height:48px; }
+  .menuBtn{ right:16px; }
+  .menuText{ font-size:12px; }
+  .burger, .burger::before, .burger::after{ width:22px; height:2px; }
+  .burger::before{ transform:translateY(-6px); }
+  .burger::after{ transform:translateY(4px); }
+  .topbar-divider{ height:10px; }
+
+  .overlayNav { font-size: 20px; gap: 20px; }
+  .closeBtn { top: 16px; right: 20px; font-size: 16px; }
+}

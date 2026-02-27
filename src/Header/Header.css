@@ -1,0 +1,262 @@
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root{
+  --padX: 5vw;
+  --text:#fff;
+  --btnBg: rgba(0,0,0,0.75);
+  --btnText:#fff;
+  --btnBorder:#fff;
+  --btnHoverBg:#fff;
+  --btnHoverText:#000;
+}
+
+/* ================= WHITE TOP BAR ================= */
+.topbar{ position: sticky; top:0; z-index: 100; background:#fff; }
+.topbar-inner{
+  height:110px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; padding:0 var(--padX);
+  background:#fff;
+}
+.brand{ position:absolute; left:50%; transform:translateX(-50%); }
+.brand img{ height:84px; width:auto; object-fit:contain; }
+.menuBtn{
+  position:absolute; right:var(--padX);
+  display:inline-flex; align-items:center; gap:12px;
+  background:transparent; border:0; cursor:pointer; color:#000;
+  font-weight:800; letter-spacing:.5px; font-size:14px;
+}
+.menuText{ font-size:14px; }
+.burger, .burger::before, .burger::after{
+  content:""; display:block; width:26px; height:2px; background:#000; border-radius:2px;
+}
+.burger::before{ transform: translateY(-7px); }
+.burger::after{ transform: translateY(5px); }
+
+
+/* ================= FULLSCREEN MENU ================= */
+.menuOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 200;
+  backdrop-filter: blur(2px);
+}
+.menuOverlay.show { opacity: 1; pointer-events: auto; }
+
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.overlayInner {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  transition: transform .35s ease, opacity .35s ease;
+}
+.menuOverlay.show .overlayInner {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Staggered nav links */
+.overlayNav {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 13%;
+}
+.overlayNav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(14px);
+}
+@keyframes linkIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.menuOverlay.show .overlayNav a { animation: linkIn .45s ease forwards; }
+.menuOverlay.show .overlayNav a:nth-child(1){ animation-delay: .12s; }
+.menuOverlay.show .overlayNav a:nth-child(2){ animation-delay: .21s; }
+.menuOverlay.show .overlayNav a:nth-child(3){ animation-delay: .30s; }
+.menuOverlay.show .overlayNav a:nth-child(4){ animation-delay: .39s; }
+.menuOverlay.show .overlayNav a:nth-child(5){ animation-delay: .48s; }
+
+.overlayNav a:hover { color:#fff; transform: translateY(-1px); }
+.overlayNav a:active { color:#fff; opacity:.9; }
+.overlayNav a:focus-visible { outline:2px solid #fff; outline-offset:4px; }
+
+/* ================= DARK HERO ================= */
+.hdr{ position:relative; min-height:100vh; width:100%; color:var(--text); background:#0b0d10; overflow:hidden; }
+.hdr-bg{ position:absolute; inset:0; background-size:cover; background-position:center; background-repeat:no-repeat; transform:scale(1.08); opacity:0; z-index:0; }
+.hdr-bg.show{ animation:bgReveal 1.6s ease forwards; }
+@keyframes bgReveal{ from{opacity:0; transform:scale(1.08);} to{opacity:1; transform:scale(1);} }
+.hdr::before{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.6) 100%); z-index:0; }
+
+/* Intro logo */
+.introOverlay{ position:absolute; inset:0; display:grid; place-items:center; z-index:2; animation:introFade 1.6s ease forwards; }
+.introLogo{ width:min(280px,60vw); animation:logoPulse 1.2s ease forwards .1s; }
+@keyframes introFade{ 0%{opacity:0} 15%{opacity:1} 85%{opacity:1} 100%{opacity:0} }
+@keyframes logoPulse{ 0%{transform:scale(.94);opacity:0} 25%{transform:scale(1);opacity:1} 100%{transform:scale(.98);opacity:1} }
+
+/* Typing headline */
+.flyWrap{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; display:inline-flex; align-items:center; gap:10px; }
+.flyText{ font-weight:800; white-space:nowrap; font-size:clamp(28px,6vw,68px); letter-spacing:.02em; color:#fff; }
+.caret{ width:2px; height:1em; background:#fff; display:inline-block; animation:caretBlink .9s step-end infinite; }
+@keyframes caretBlink{ 0%,100%{opacity:0} 50%{opacity:1} }
+.flyWrap.slideLeft{ animation:flyToLeft 1.2s ease forwards; }
+@keyframes flyToLeft{ from{ left:50%; transform:translate(-50%,-50%) } to{ left:8vw; transform:translate(0,-50%) } }
+
+/* Final hero */
+.heroLeft{ position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:0 var(--padX); gap:28px; }
+.heroTitle{ line-height:1.06; font-weight:800; font-size:clamp(40px,7.2vw,96px); }
+.heroTitle .nowrap{ white-space:nowrap; display:inline-block; }
+.force-break{ display:block; }
+
+/* === HERO CTA pills (like screenshot) === */
+.heroCTAs{
+  position:absolute;
+  left:46%;
+  transform:translateX(-50%);
+  bottom:22vh;
+  width:min(1200px, 92vw);
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:28px;
+  z-index:2;
+}
+.pillBtn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:72px;
+  border:2px solid #fff;
+  border-radius:9999px;
+  background:#000;
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  font-size:clamp(14px, 1.05vw, 18px);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset;
+  transition:transform .2s ease, opacity .2s ease;
+}
+.pillBtn:hover{ transform: translateY(-2px); opacity:.95; background:#000; color:#fff; border-color:#fff; }
+.pillBtn:active{ transform: translateY(0); opacity:.85; }
+
+/* Fade in hero content */
+.fadeInBlock{ opacity:0; animation:fadeIn 1.2s ease forwards; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+/* ================= Responsive ================= */
+
+/* tablets */
+@media (max-width: 900px){
+  .heroCTAs{ grid-template-columns: repeat(2, 1fr); }
+}
+
+/* phones stack + keep title visible */
+@media (max-width: 560px){
+  .heroCTAs{ grid-template-columns: 1fr; }
+  .pillBtn{ height:64px; }
+}
+
+/* ≤ 420px (fits title + pushes pills lower) */
+@media (max-width: 426px){
+  .heroTitle{
+    font-size: clamp(28px, 10.5vw, 40px) !important;
+    line-height: 1.08 !important;
+    text-align: left;
+    margin-bottom: 30%;
+  }
+  .heroLeft{ padding: 0 16px !important; }
+  .heroCTAs{
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    bottom: 7vh !important;
+    width: 92vw !important;
+  }
+  .pillBtn{ height: 60px !important; }
+}
+
+/* ≤ 375px */
+@media (max-width: 375px){
+  .brand img{ height:42px; }
+  .menuText{ display:none;
+  margin-top: 30%; }
+
+  .heroTitle{
+    font-size: clamp(26px, 11vw, 36px) !important;
+    line-height: 1.08 !important;
+  }
+  .heroCTAs{ bottom: 6vh !important; gap: 14px !important; }
+  .pillBtn{ height: 58px !important; }
+}
+
+/* ≤ 320px */
+@media (max-width: 320px){
+  .brand img{ height:38px; }
+
+  .heroTitle{
+    font-size: clamp(24px, 11.8vw, 34px) !important;
+    line-height: 1.06 !important;
+  }
+  .heroCTAs{ bottom: 5vh !important; gap: 12px !important; }
+  .pillBtn{ height: 54px !important; }
+}
+
+/* ≤ 425px */
+@media (max-width: 426px){
+  .brand{
+    position: relative !important;
+    left: 0 !important;
+    transform: none !important;
+    margin-right: 70%;
+  }
+  .brand img{ height: 60px !important; }  /* adjust if needed */
+}
+
+/* ≤ 375px */
+@media (max-width: 375px){
+  .brand{
+    position: relative !important;
+    left: 0 !important;
+    transform: none !important;
+    margin-right: 70%;
+  }
+  .brand img{ height: 50px !important; }
+}
+
+/* ≤ 320px */
+@media (max-width: 320px){
+  .brand{
+    position: relative !important;
+    left: 0 !important;
+    transform: none !important;
+    margin-right: 70%;
+  }
+  .brand img{ height: 44px !important; }
+}

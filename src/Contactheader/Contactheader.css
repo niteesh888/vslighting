@@ -1,0 +1,137 @@
+:root{
+  --page-bg: #efefef;           /* like the contact page */
+  --ink: #0a0a0a;               /* black text/icons */
+  --line: #ececec;
+  --ring: rgba(0,0,0,.06);
+}
+
+/* HEADER BAR */
+.contact-hdr{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background: var(--page-bg);
+  border-bottom: 1px solid transparent;
+  padding: 22px 18px 12px;
+  transition:
+    transform .28s ease,
+    background-color .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+/* hide on scroll down / show on scroll up */
+.contact-hdr.is-hidden{ transform: translateY(-100%); }
+.contact-hdr.is-visible{ transform: translateY(0); }
+
+/* when scrolled: white bg + thin border + shadow (like your second screenshot) */
+.contact-hdr.is-scrolled{
+  background: #fff;
+  border-bottom-color: var(--line);
+  box-shadow: 0 8px 22px var(--ring);
+}
+
+/* centered logo */
+.contact-logo{
+  display: block;
+  width: 170px;
+  margin: 0 auto;
+}
+.contact-logo img{
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+/* SAME MENU button look as your Header (right side) */
+.hdr-menuBtn{
+  position: absolute;
+  top: 18px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+.hdr-menuText{
+  font-size: 14px;
+}
+.contact-menuBtn{
+  color: var(--ink);
+}
+.contact-menuBtn img{
+  width: 28px;
+  height: 28px;
+}
+
+/* ===========================
+   MENU OVERLAY (copied to match your Header)
+   If your global Header.css already defines these,
+   you can delete this block to avoid duplicates.
+   =========================== */
+.menuOverlay { position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 99; display: none; }
+.menuOverlay.show { display: block; animation: fadeOverlay .5s ease forwards; }
+@keyframes fadeOverlay { from { opacity: 0; } to { opacity: 1; } }
+
+.menuInner { display:flex; flex-direction:column; align-items:center; padding-top:120px; gap:32px; text-align:center; margin-top: 5%; }
+.closeBtn { position:absolute; top:20px; right:28px; background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer; }
+.menuNav { display:flex; flex-direction:column; gap:20px; }
+.menuNav a { font-size:24px; color:#fff; text-decoration:none; font-weight:600; opacity:0; animation: fadeInUp .6s ease forwards; }
+.menuNav a:hover { opacity:.6; }
+@keyframes fadeInUp { from { opacity:0; transform: translateY(20px);} to { opacity:1; transform: translateY(0);} }
+
+
+
+@media (max-width: 426px) {
+  .menuInner { 
+    display: flex;
+    margin-top: 20%;
+  }
+}
+
+@media (max-width: 426px) {
+  .contact-logo {
+    width: 100px;   /* smaller logo */
+    margin: 0;      /* align left */
+  }
+  .contact-logo img {
+    width: 100%;
+  }
+  .hdr-menuBtn {
+    top: 14px;
+    right: 14px;
+  }
+}
+
+/* 375px */
+@media (max-width: 375px) {
+  .contact-logo {
+    width: 100px;  /* smaller */
+    margin: 0;
+  }
+  .hdr-menuBtn {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/* 320px */
+@media (max-width: 320px) {
+  .contact-logo {
+    width: 80px;  /* even smaller */
+    margin: 0;
+  }
+  .hdr-menuBtn {
+    top: 10px;
+    right: 10px;
+  }
+  .hdr-menuText {
+    font-size: 12px;
+  }
+}

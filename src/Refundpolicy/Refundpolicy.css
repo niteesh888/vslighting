@@ -1,0 +1,94 @@
+/* ===== top bar ===== */
+.rp-top{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #ffffff;
+  border-bottom: 1px solid #eee;
+  padding: 12px 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rp-brand img{ height: 64px; width: auto; object-fit: contain; }
+.rp-menuBtn{
+  position: absolute; right: 5vw;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent; border: none; cursor: pointer;
+  color: #111; font-weight: 700; letter-spacing: .5px;
+}
+.rp-menuBtn img{ width: 24px; height: 24px; }
+.rp-menuText{ font-size: 14px; }
+
+/* ===== hero ===== */
+.rp-hero{
+  position: relative;
+  min-height: 32vh;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+  display: grid; place-items: center; overflow: hidden;
+}
+.rp-hero::before{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
+}
+.rp-heroInner{ position: relative; z-index: 1; text-align: center; color: #fff; padding: 24px 16px; }
+.rp-heroInner h1{ margin:0 0 6px; font-weight: 800; font-size: clamp(28px, 5vw, 44px); }
+.rp-heroInner p{ margin:0; opacity:.9; }
+
+/* ===== layout (no left sidebar) ===== */
+.rp-wrap{
+  max-width: 900px;              /* comfy reading width */
+  margin: 28px auto 80px;
+  padding: 0 16px;
+}
+
+/* ===== content ===== */
+.rp-content{ font-size:15px; line-height:1.8; color:#212121; }
+.rp-content h2{ margin:32px 0 10px; font-size:22px; line-height:1.3; font-weight:800; }
+.rp-content p, .rp-content ul{ margin:10px 0; }
+.rp-content ul{ padding-left:18px; }
+
+/* ===== full-screen menu overlay ===== */
+.rpMenuOverlay{ position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 999; display: none; }
+.rpMenuOverlay.show{ display: block; animation: rpFade .5s ease forwards; }
+@keyframes rpFade{ from{opacity:0} to{opacity:1} }
+
+.rpMenuInner{ display:flex; flex-direction:column; align-items:center; padding-top: 90px; gap: 32px; text-align:center; height:100%; }
+.rpCloseBtn{ position:absolute; top:20px; right:28px; background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer; }
+.rpMenuLogo img{ width: clamp(120px, 18vw, 200px); height:auto; filter: drop-shadow(0 4px 22px rgba(0,0,0,.45)); }
+.rpMenuNav{ display:flex; flex-direction:column; gap:20px; }
+.rpMenuNav a{ font-size: 24px; color:#fff; text-decoration:none; font-weight:600; opacity:0; animation: rpFadeUp .6s ease forwards; }
+.rpMenuNav a:hover{ opacity:.6; }
+@keyframes rpFadeUp{ from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:translateY(0)} }
+
+/* ===== responsive ===== */
+@media (max-width: 860px){
+  .rp-wrap{ max-width: 720px; }
+}
+
+/* ===== WhatsApp floating button ===== */
+.rp-whatsapp{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1000;
+}
+.rp-whatsapp img{
+  width: 32px;
+  height: 32px;
+}
+.rp-whatsapp:hover{
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}

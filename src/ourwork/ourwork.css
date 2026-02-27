@@ -1,0 +1,165 @@
+/* Root defaults */
+:root {
+  --ourwork-overlay: rgba(0, 0, 0, 0.45); /* darkness over the image */
+  --ourwork-text: #ffffff;
+  --ourwork-subtext: rgba(255, 255, 255, 0.85);
+  --ourwork-btn-bg: transparent;
+  --ourwork-btn-text: #ffffff;
+  --ourwork-btn-border: #ffffff;
+  --ourwork-btn-bg-hover: #ffffff;
+  --ourwork-btn-text-hover: #111111;
+  --ourwork-radius-pill: 9999px;
+  --ourwork-maxw: 1100px;
+
+  /* Fallback background image if prop not provided */
+  --bg-url: url("/images/hero-default.jpg");
+}
+
+/* Section */
+.ourwork {
+  position: relative;
+  width: 100%;
+  min-height: 92vh; /* nearly full screen */
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+
+  /* Background image */
+  background-image: var(--bg-url);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Soft grayscale + darkness without losing detail */
+.ourwork::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: grayscale(10%);
+}
+
+.ourwork__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.45) 40%,
+      rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* Content */
+.ourwork__content {
+  position: relative;
+  z-index: 2;
+  width: min(92vw, var(--ourwork-maxw));
+  text-align: center;
+  color: var(--ourwork-text);
+  padding: clamp(16px, 4vw, 40px);
+}
+
+/* Title */
+.ourwork__title {
+  margin: 0 0 12px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: 0.2px;
+  font-size: clamp(34px, 5vw + 10px, 64px);
+}
+
+/* Subtitle */
+.ourwork__subtitle {
+  margin: 0 0 28px;
+  font-weight: 500;
+  color: var(--ourwork-subtext);
+  line-height: 1.4;
+  font-size: clamp(14px, 1.4vw + 8px, 20px);
+}
+
+/* Pill Button */
+.ourwork__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 34px;
+  border-radius: var(--ourwork-radius-pill);
+  border: 2px solid var(--ourwork-btn-border);
+  background: var(--ourwork-btn-bg);
+  color: var(--ourwork-btn-text);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease,
+    box-shadow 160ms ease;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.ourwork__btn:hover,
+.ourwork__btn:focus-visible {
+  background: var(--ourwork-btn-bg-hover);
+  color: var(--ourwork-btn-text-hover);
+  transform: translateY(-1px);
+  outline: none;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+
+/* WhatsApp floating action button */
+.wa-fab {
+  display: none; /* hide by default on desktop */
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25d366;
+  display: grid;
+  place-items: center;
+  z-index: 30;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.wa-fab__icon {
+  width: 26px;
+  height: 26px;
+  fill: white;
+}
+
+.wa-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.32);
+}
+
+/* Show WhatsApp button only on mobile/tablet: 320px - 768px */
+@media (min-width: 320px) and (max-width: 768px) {
+  .wa-fab {
+    display: grid;
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .ourwork {
+    min-height: 84vh;
+  }
+  .ourwork__subtitle {
+    margin-bottom: 22px;
+  }
+  .wa-fab {
+    right: 14px;
+    bottom: 14px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .ourwork {
+    min-height: 100vh; /* full screen on large desktops */
+  }
+}
